@@ -22,18 +22,10 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
-        choice = input("Choose the number of the city you want to analyze: "+
-                     "\n[1] Chicago \n [2] New York City \n [3] Washington\nChoice: ")
-        
-        if choice == '1':
-            city = 'chicago'
-        elif choice == '2':
-            city = 'new york city'
-        elif choice == '3':
-            city = 'washington'
-        else:
-            city = 'invalid city'
-        
+        city = input("Choose the number of the city you want to analyze: "+
+                     "\nChicago\nNew York City\nWashington\nChoice: ")
+        city = city.lower()
+               
         # validate city to make sure we have the correct data
         if city not in ('new york city', 'chicago', 'washington'):
             print("Please enter a valid city.")
@@ -41,87 +33,35 @@ def get_filters():
         else:
             break
 
-    # ask use if he/she wants to filter by month or day
+    # get user input for month (all, january, february, ... , june)
     while True:
-        filter_choice = input("\nWould you like to filter the data by:\n[1] month\n[2] day\n[3] Select all (no filter)?\nChoice: ")
-
-        if filter_choice == '1':
-            filter = 'month'
-        elif filter_choice == '2':
-            filter = 'day'
-        elif filter_choice == '3':
-            filter = 'all'
-        else:
-            filter = 'invalid'
-
+        month = input("\nChoose the number of which month you want to analyze for " + city.title() + 
+                    "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nAll\nChoice: ")
+        month = month.lower()
+      
         # make sure user selects within the choices
-        if filter not in ('month', 'day', 'all'):
+        if month not in ('january', 'february', 'march', 'april', 'may', 
+                        'june', 'all'):
             print("Please enter a valid number within the choices.")
             continue
         else:
-            break       
+            break
 
-    if filter == 'month':
-        # get user input for month (all, january, february, ... , june)
-        while True:
-            month_choice = input("\nChoose the number of which month you want to analyze for " + city.title() + 
-                        "\n[1] January\n[2] February\n[3] March\n[4] April\n[5] May\n[6] June\nChoice: ")
+    # get user input for day of week (all, monday, tuesday, ... sunday)
+    while True:
+        day = input("\nChoose a day to analyze:" +
+                    "\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday\nAll\nChoice: ")
+        day = day.lower()
+               
+        # invalid input handling for month
+        if day not in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday',
+                    'saturday', 'sunday', 'all'):
+            print("Please enter a valid number within the choices.")
+            continue
+        else:
+            break
 
-            if month_choice == '1':
-                month = 'january'
-            elif month_choice == '2':
-                month = 'february'
-            elif month_choice == '3':
-                month = 'march'
-            elif month_choice == '4':
-                month = 'april'
-            elif month_choice == '5':
-                month = 'may'
-            elif month_choice == '6':
-                month = 'june'                
-            else:
-                month = 'invalid'
-            
-            # make sure user selects within the choices
-            if month not in ('january', 'february', 'march', 'april', 'may', 
-                            'june', 'all'):
-                print("Please enter a valid number within the choices.")
-                continue
-            else:
-                break
-
-    elif filter == 'day':
-        # get user input for day of week (all, monday, tuesday, ... sunday)
-        while True:
-            day_choice = input("\nChoose a day to analyze:" +
-                        "\n[1] Monday\n[2] Tuesday\n[3] Wednesday\n[4] Thursday\n[5] Friday\n[6] Saturday\n[7] Sunday\nChoice: ")
-            
-            if day_choice == '1':
-                day = 'monday'
-            elif day_choice == '2':
-                day = 'tuesday'
-            elif day_choice == '3':
-                day = 'wednesday'
-            elif day_choice == '4':
-                day = 'thursday'
-            elif day_choice == '5':
-                day = 'friday'
-            elif day_choice == '6':
-                day = 'saturday'
-            elif day_choice == '7':
-                day = 'sunday'              
-            else:
-                day = 'invalid'
-            
-            # invalid input handling for month
-            if day not in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday',
-                        'saturday', 'sunday'):
-                print("Please enter a valid number within the choices.")
-                continue
-            else:
-                break
-
-    print('-'*40)
+    print('========================================================================================')
     return city, month, day
 
 
@@ -306,6 +246,20 @@ def user_stats(df, city):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('========================================================================================')
 
+def display_raw_data(df):
+    """ Displays 5 lines of raw data at a time when yes is selected."""
+    # define index i, start at line 1
+    i = 1
+    while True:
+        view_data = input("Would you like to view 5 rows of individual trip data? Enter yes or no?")
+        if view_data.lower() == 'yes':
+            # print current 5 lines
+            print(df[i:i+5])
+            i = i+5
+            
+        else:
+            # break when no is selected
+            break
 
 def main():
     while True:
@@ -316,6 +270,7 @@ def main():
         station_stats(df, city)
         trip_duration_stats(df, city)
         user_stats(df, city)
+        display_raw_data(df)
 
         choice = input("\nWould you like to analyze more data? [y/n]")
         if choice.lower() != 'y':
