@@ -25,15 +25,14 @@ def get_filters():
         choice = input("Choose the number of the city you want to analyze: "+
                      "\n[1] Chicago \n [2] New York City \n [3] Washington\nChoice: ")
         
-        match choice:
-            case '1':
-                city = 'chicago'
-            case '2':
-                city = 'new york city'
-            case '3':
-                city = 'washington'
-            case _:
-                city = 'invalid city'
+        if choice == '1':
+            city = 'chicago'
+        elif choice == '2':
+            city = 'new york city'
+        elif choice == '3':
+            city = 'washington'
+        else:
+            city = 'invalid city'
         
         # validate city to make sure we have the correct data
         if city not in ('new york city', 'chicago', 'washington'):
@@ -46,15 +45,15 @@ def get_filters():
     while True:
         filter_choice = input("\nWould you like to filter the data by:\n[1] month\n[2] day\n[3] Select all (no filter)?\nChoice: ")
 
-        match filter_choice:
-            case '1':
-                filter = 'month'
-            case '2':
-                filter = 'day'
-            case '3':
-                filter = 'all'
-            case _:
-                filter = 'invalid'
+        if filter_choice == '1':
+            filter = 'month'
+        elif filter_choice == '2':
+            filter = 'day'
+        elif filter_choice == '3':
+            filter = 'all'
+        else:
+            filter = 'invalid'
+
         # make sure user selects within the choices
         if filter not in ('month', 'day', 'all'):
             print("Please enter a valid number within the choices.")
@@ -67,22 +66,21 @@ def get_filters():
         while True:
             month_choice = input("\nChoose the number of which month you want to analyze for " + city.title() + 
                         "\n[1] January\n[2] February\n[3] March\n[4] April\n[5] May\n[6] June\nChoice: ")
-            # make entries case-insensitive and use small letters
-            match month_choice:
-                case '1':
-                    month = 'january'
-                case '2':
-                    month = 'february'
-                case '3':
-                    month = 'march'
-                case '4':
-                    month = 'april'
-                case '5':
-                    month = 'may'
-                case '6':
-                    month = 'june'                
-                case _:
-                    month = 'invalid'
+
+            if month_choice == '1':
+                month = 'january'
+            elif month_choice == '2':
+                month = 'february'
+            elif month_choice == '3':
+                month = 'march'
+            elif month_choice == '4':
+                month = 'april'
+            elif month_choice == '5':
+                month = 'may'
+            elif month_choice == '6':
+                month = 'june'                
+            else:
+                month = 'invalid'
             
             # make sure user selects within the choices
             if month not in ('january', 'february', 'march', 'april', 'may', 
@@ -98,23 +96,22 @@ def get_filters():
             day_choice = input("\nChoose a day to analyze:" +
                         "\n[1] Monday\n[2] Tuesday\n[3] Wednesday\n[4] Thursday\n[5] Friday\n[6] Saturday\n[7] Sunday\nChoice: ")
             
-            match day_choice:
-                case '1':
-                    day = 'monday'
-                case '2':
-                    day = 'tuesday'
-                case '3':
-                    day = 'wednesday'
-                case '4':
-                    day = 'thursday'
-                case '5':
-                    day = 'friday'
-                case '6':
-                    day = 'saturday'
-                case '7':
-                    day = 'sunday'              
-                case _:
-                    day = 'invalid'
+            if day_choice == '1':
+                day = 'monday'
+            elif day_choice == '2':
+                day = 'tuesday'
+            elif day_choice == '3':
+                day = 'wednesday'
+            elif day_choice == '4':
+                day = 'thursday'
+            elif day_choice == '5':
+                day = 'friday'
+            elif day_choice == '6':
+                day = 'saturday'
+            elif day_choice == '7':
+                day = 'sunday'              
+            else:
+                day = 'invalid'
             
             # invalid input handling for month
             if day not in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday',
@@ -234,7 +231,7 @@ def trip_duration_stats(df, city):
     
     total_time_in_hr = round(total_time_sec / 60 / 60 ,0)
     
-    # 3. print total travel time
+    # print total travel time
     print('Total travel time: ', total_time_in_hr, 'hours\n')
 
     # display mean travel time
