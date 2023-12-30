@@ -54,11 +54,13 @@ This project will calculate and provide the following information
 
 ## The Files
 
-Three city dataset files are given:
+Three city dataset files are needed but are not found in this project:
 
    - chicago.csv
    - new_york_city.csv
    - washington.csv
+
+These csv files are provided by Udacity, so you may want to contact Udacity to get these files.
 
 ## Sample output
 ![Screenshot](docs/sample_output.png)
